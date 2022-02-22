@@ -2,6 +2,36 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docker
+```
+ docker run -itd --name rtl-tdd-todos -p3000 node:16.14.0-bullseye
+ docker commit rtl-tdd-todos avantgard7/kas:rtl-tdd-todos
+ docker push avantgard7/kas:rtl-tdd-todos 
+```
+
+## docker delivery
+```
+docker container stop rtl-tdd-todos
+docker pull avantgard7/kas:rtl-tdd-todos
+docker run -itd --rm --name rtl-tdd-todos -p 3000:3000 avantgard7/kas:rtl-tdd-todos
+```
+
+## Git
+```
+git init
+git config --global user.name 'jeonchangbae'
+git config --global user.mail 'avantgard7@gmail.com'
+git branch -M main
+```
+
+## Git remote config
+Id, Pw 는 windows 자격증명관리자에 등록이 되어있어야 한다.
+```
+git remote add origin https://github.com/jeonchangbae/rtl-tdd-todos.git (Github repository HTTPS URL)
+git push -u origin main
+```
+### `npmx create-react-app rtl-add-totos`
+
 ## Available Scripts
 
 In the project directory, you can run:
