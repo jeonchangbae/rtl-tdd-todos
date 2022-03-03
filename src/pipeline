@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    tools {
+        nodejs "Node16"
+        git "Git"
+    }
+    stages {
+        stage('prepare') {
+            steps {
+                echo 'prepare'
+                 git branch: "${BRANCH}", credentialsId: "GIT_ACCOUNT", url: 'https://github.com/jeonchangbae/rtl-tdd-todos.git'
+                 sh  'ls -al'
+            }
+        }
+        stage('build') {
+            steps {
+                    dir('./'){
+                        sh 'ls -al'
+                        sh "npm install"
+                        sh "CI=false npm run build"
+                        sh "docker build --tag avantgard7/ksa:frontend ."
+                        sh "docker push avantgard7/ksa:frontend"
+                }
+            }
+        }
+        stage('deploy') {
+            steps {
+                dir('./'){
+                    sh 'ls -al'
+                    sh "aws s3 sync ./build s3://todos-jeon --delete --profile default"
+                    echo 'deploy done.'   
+            }
+        }
+    }
+}
